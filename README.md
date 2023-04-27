@@ -1,2 +1,2 @@
 # financeiro
-Gerênciados de Finanças e Investimentos
+Gerenciador de Finanças e Investimentos
