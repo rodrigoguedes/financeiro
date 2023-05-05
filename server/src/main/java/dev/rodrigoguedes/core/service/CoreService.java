@@ -36,4 +36,37 @@ public class CoreService<T extends CoreEntity<K>, K extends Serializable> {
         return this.repository.findAll(pageable);
     }
 
+    @Transactional
+    public T save(T entity) {
+        if (isNew(entity)) {
+            beforeInsert(entity);
+        } else {
+            beforeUpdate(entity);
+        }
+
+        T saved = this.getRepository().save(entity);
+
+        afterSave(entity);
+
+        return saved;
+    }
+
+    protected void beforeInsert(T entity) {
+    }
+
+    protected void beforeUpdate(T entity) {
+    }
+
+    protected void afterSave(T entity) {
+    }
+
+    protected boolean isNew(T entity) {
+        return entity.isNew();
+    }
+
+    public void delete(T entity) {
+        this.getRepository().delete(entity);
+        this.getRepository().flush();
+    }
+
 }
