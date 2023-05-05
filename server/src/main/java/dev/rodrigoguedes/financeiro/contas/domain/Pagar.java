@@ -9,17 +9,20 @@ import org.hibernate.annotations.CompositeType;
 import dev.rodrigoguedes.core.domain.CoreEntity;
 import io.hypersistence.utils.hibernate.type.money.MonetaryAmountType;
 import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
 import lombok.ToString;
 
 @Entity
-@Table(name = "fin_pagar")
+@Table(name = "con_pagar")
 @ToString
 public class Pagar extends CoreEntity<UUID> {
 
@@ -34,6 +37,10 @@ public class Pagar extends CoreEntity<UUID> {
 
     @Column(name = "descricao", length = 100)
     private String descricao;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 
     @AttributeOverride(name = "amount", column = @Column(name = "valor"))
     @AttributeOverride(name = "currency", column = @Column(name = "moeda"))
@@ -59,6 +66,14 @@ public class Pagar extends CoreEntity<UUID> {
 
     public void setValor(MonetaryAmount valor) {
         this.valor = valor;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
 }
