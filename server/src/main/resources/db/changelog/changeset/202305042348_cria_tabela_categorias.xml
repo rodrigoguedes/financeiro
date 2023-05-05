@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.9.xsd">
+    <changeSet id="202305042348_cria_tabela_categorias" author="Rodrigo Guedes de Souza">
+        <createTable tableName="con_categorias">
+            <column name="id" type="char(36)">
+                <constraints primaryKey="true" primaryKeyName="con_categorias_id_pk" />
+            </column>
+            <column name="version" type="number" />
+            <column name="descricao" type="varchar(100)" />
+        </createTable>
+        <addUniqueConstraint tableName="con_categorias" columnNames="descricao" constraintName="con_categorias_descricao_unique" />
+        <addNotNullConstraint tableName="con_categorias" columnName="descricao" columnDataType="varchar(100)" constraintName="con_categorias_descricao_not_null" />
+    </changeSet>
+</databaseChangeLog>
